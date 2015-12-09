@@ -33,13 +33,10 @@ export function next(state) {
   }
 }
 
-export function vote(state, entry) {
-  return state.updateIn(
-    ['vote', 'tally', entry],
-    0, // default value
+export function vote(voteState, entry) {
+  return voteState.updateIn(
+    ['tally', entry],
+    0,
     tally => tally + 1
-    //function(tally) {
-    //  return tally + 1;
-    //}
   );
 }
