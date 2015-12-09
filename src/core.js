@@ -4,6 +4,8 @@ export function setEntries(state, entries) {
   return state.set('entries', List(entries));
 }
 
+export const INITIAL_STATE = Map();
+
 function getWinners(vote) {
   if (!vote) return [];
   const [a, b] = vote.get('pair');
