@@ -16,10 +16,19 @@ function getWinners(vote) {
 
 export function next(state) {
   const entries = state.get('entries').concat(getWinners(state.get('vote')));
-  return state.merge({
-    vote: Map({pair: entries.take(2)}),
-    entries: entries.skip(2)
-  });
+
+  if (entries.size === 1) {
+      // It is generally a good idea in these state transformation functions to always morph the old state into the new one instead of building the new state completely from scratch.
+    // return Map({
+    //   winner: entries.get(0)
+    // });
+    return state.remove('vote').remove('entries').set('winner', entries.first());
+  } else {
+    return state.merge({
+      vote: Map({pair: entries.take(2)}),
+      entries: entries.skip(2)
+    });
+  }
 }
 
 export function vote(state, entry) {
